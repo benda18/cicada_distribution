@@ -114,13 +114,22 @@ mk3 <- function(x){
 }
 
 
+# not counties----
+not.counties <- data.frame(state = "OH", 
+                           conam = c("Williams", "Defiance", 
+                                     "Paulding", "Van Wert", 
+                                     "Putnam", "Wood", "Seneca", 
+                                     "Crawford", "Morrow", "Fulton", "Henry", 
+                                     "Lucas", "Ottawa", "Sandusky", "Hardin", 
+                                     "Ashtabula", "Pickaway"))
+not.counties$cost <- paste(not.counties$conam, 
+                           not.counties$state)
 
-not.counties <- data.frame(state = 39, 
-                           conum = c(161, 125,39,171,51,69,137,95,173,63,
-                                     147,143,123,43))
+paste(bound.counties$NAME, bound.counties$STUSPS)
 
-
-bound.counties$STATEFP[bound.counties$STUSPS == "OH"]
+bound.counties2 <- bound.counties[!paste(bound.counties$NAME, 
+                                         bound.counties$STUSPS) %in%
+                                    not.counties$cost,] 
 
 leaflet() %>%
   # add different provider tiles
@@ -158,7 +167,7 @@ leaflet() %>%
     options = layersControlOptions(collapsed = F)
   ) %>%
   addPolygons(
-    data = bound.counties, 
+    data = bound.counties2, 
     #group = bound.counties, 
     stroke = T, 
     fillColor = "cyan", 
@@ -166,12 +175,28 @@ leaflet() %>%
     color = "blue", 
     opacity = 0.33, 
     weight = NA, 
-    label = as.numeric(bound.counties$COUNTYFP),
+    label = bound.counties2$NAME,
     labelOptions = labelOptions(
       textsize = 14,
-      permanent = T, 
+      permanent = F,
       noHide = NULL
     )
+  ) %>%
+  addPolylines(
+    data = bound.counties, 
+    #group = bound.counties, 
+    stroke = T, 
+    # fillColor = "cyan", 
+    # fillOpacity = 0.66, 
+    color = "blue", 
+    opacity = 0.33, 
+    weight = NA, 
+    # label = as.numeric(bound.counties$COUNTYFP),
+    # labelOptions = labelOptions(
+    #   textsize = 14,
+    #   permanent = T, 
+    #   noHide = NULL
+    # )
   ) %>%
   addPolylines(data = bound.states, 
               group = "States",
