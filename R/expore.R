@@ -68,10 +68,10 @@ cw.broodregion <- data.frame(brood_num = 1:17,
 
 cw.broodregion <- rbind(cw.broodregion, 
                         data.frame(brood_num = c(19, 21, 22, 23), 
-           gen_reg = c("AL, AR, GA, IN, IL, KY, LA, MD, MO, MS, NC, OK, SC, TN, VA", 
-                       "FL", 
-                       "LA, MS, OH, KY", 
-                       "AR, IL, IN, KY, LA, MO, MS, TN"))) %>%
+                                   gen_reg = c("AL, AR, GA, IN, IL, KY, LA, MD, MO, MS, NC, OK, SC, TN, VA", 
+                                               "FL", 
+                                               "LA, MS, OH, KY", 
+                                               "AR, IL, IN, KY, LA, MO, MS, TN"))) %>%
   .[complete.cases(.),]
 
 
@@ -115,13 +115,43 @@ mk3 <- function(x){
 
 
 # not counties----
-not.counties <- data.frame(state = "OH", 
-                           conam = c("Williams", "Defiance", 
-                                     "Paulding", "Van Wert", 
-                                     "Putnam", "Wood", "Seneca", 
-                                     "Crawford", "Morrow", "Fulton", "Henry", 
-                                     "Lucas", "Ottawa", "Sandusky", "Hardin", 
-                                     "Ashtabula", "Pickaway"))
+defin.counties <- rbind(data.frame(state = "MI", 
+                                   conam = c("Berrien", "Cass", "St. Joseph", "Jackson",
+                                             "Branch", "Hillsdale")), 
+                        data.frame(state = "WI", 
+                                   conam = c("Crawford", "Grant", "Iowa", "Richland", 
+                                             "Saulk", "Dane", "Jefferson", "Waukesha", 
+                                             "Milwaukee", "Green", "Rock", "Walworth")), 
+                        data.frame(state = "NY",
+                                   conam = c("Ontario", "Yates", "Seneca", "Kings", 
+                                             "Queens", "Nassau", "Suffolk",
+                                             "Bronx", "New York", "Westchester", 
+                                             "Putnam", "Rensselaer", "Columbia", "Dutchess", 
+                                             "Albany", "Greene", "Ulster", "Orange"))
+                        ) %>%
+  mutate(., 
+         cost = paste(conam, state))
+def.not.counties <- bound.counties[bound.counties$STUSPS %in% 
+                                     defin.counties$state & 
+                                     !paste(bound.counties$NAME, 
+                                            bound.counties$STUSPS) %in% 
+                                     defin.counties$cost,] %>%
+  mutate(., 
+         cost = paste(NAME, STUSPS)) %>%
+  .$cost
+
+
+not.counties <- rbind(data.frame(state = "OH", 
+                                 conam = c("Williams", "Defiance", 
+                                           "Paulding", "Van Wert", 
+                                           "Putnam", "Wood", "Seneca", 
+                                           "Crawford", "Morrow", "Fulton", "Henry", 
+                                           "Lucas", "Ottawa", "Sandusky", "Hardin", 
+                                           "Ashtabula", "Pickaway")), 
+                      data.frame(state = "IN", 
+                                 conam = c("Jasper", "Newton", "Cass", "Wabash", 
+                                           "Whitley", "LaGrange")))
+
 not.counties$cost <- paste(not.counties$conam, 
                            not.counties$state)
 
@@ -129,7 +159,7 @@ paste(bound.counties$NAME, bound.counties$STUSPS)
 
 bound.counties2 <- bound.counties[!paste(bound.counties$NAME, 
                                          bound.counties$STUSPS) %in%
-                                    not.counties$cost,] 
+                                    c(def.not.counties, not.counties$cost),] 
 
 leaflet() %>%
   # add different provider tiles
@@ -199,10 +229,10 @@ leaflet() %>%
     # )
   ) %>%
   addPolylines(data = bound.states, 
-              group = "States",
-              stroke = T,
-              fillColor = "brown", 
-              fillOpacity = 0.33,
-              opacity = 1,
-              color = "black",
-              weight = NA)
+               group = "States",
+               stroke = T,
+               fillColor = "brown", 
+               fillOpacity = 0.33,
+               opacity = 1,
+               color = "black",
+               weight = NA)
