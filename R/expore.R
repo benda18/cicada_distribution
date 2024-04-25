@@ -8,7 +8,9 @@ library(data.table)
 
 snapshot()
 
-rm(list=ls());cat('\f')
+rm(list=ls()[!ls() %in% c("bound.states", 
+                          "bound.counties", 
+                          "brood.out")]);cat('\f')
 
 # https://cicadas.uconn.edu/broods/
 
@@ -75,28 +77,37 @@ cw.broodregion <- rbind(cw.broodregion,
   .[complete.cases(.),]
 
 
-brood.out <- NULL
-for(i in 1:nrow(cw.broodregion)){
-  if(!is.na(cw.broodregion$gen_reg[i])){
-    
-    brood.out <- rbind(brood.out, 
-                       data.frame(brood_num = cw.broodregion$brood_num[i], 
-                                  state = trimws(unlist(strsplit(cw.broodregion[i,]$gen_reg, ",")))))
-    
+if(!"brood.out" %in% ls()){
+  brood.out <- NULL
+  for(i in 1:nrow(cw.broodregion)){
+    if(!is.na(cw.broodregion$gen_reg[i])){
+      
+      brood.out <- rbind(brood.out, 
+                         data.frame(brood_num = cw.broodregion$brood_num[i], 
+                                    state = trimws(unlist(strsplit(cw.broodregion[i,]$gen_reg, ",")))))
+      
+      
+    }
     
   }
   
+  brood.out %>% as_tibble()
 }
 
-brood.out %>% as_tibble()
 
 # mapping----
 
-bound.states <- tigris::states(cb = T) %>%
-  .[.$STUSPS %in% brood.out$state,]
+if(!"bound.states" %in% ls()){
+  bound.states <- tigris::states(cb = T) %>%
+    .[.$STUSPS %in% brood.out$state,]
+  
+}
 
-bound.counties <- tigris::counties(cb = T) %>%
-  .[.$STUSPS %in% brood.out$state,]
+if(!"bound.counties" %in% ls()){
+  bound.counties <- tigris::counties(cb = T) %>%
+    .[.$STUSPS %in% brood.out$state,]
+}
+
 
 mk3 <- function(x){
   out <- x %>%
@@ -141,7 +152,17 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Labette", "Cherokee", "Osage", 
                                              "Coffey", "Douglas", "Johnson", 
                                              "Wyandotte", "Morris", "Chase", 
-                                             "Marion"))
+                                             "Marion")),
+                        data.frame(state = "OK", 
+                                   conam = c("Osage", "Washington", "Nowata", 
+                                             "Craig", "Mayes", "Wagoner", 
+                                             "Tulsa", "Pawnee", "Muskogee", 
+                                             "Adair", "McCurtain", "Choctaw", 
+                                             "Bryan", "Love", "Carter",
+                                             "Jefferson", "Comanche" )), 
+                        data.frame(state = "TX", 
+                                   conam = c("Red River", "Lamar", "Fannin", 
+                                             "Cooke", "Kaufman"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
