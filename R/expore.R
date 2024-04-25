@@ -207,10 +207,10 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Carroll", "Boone", "Marion", "Fulton", 
                                              "Sevier", "Howard", "Pike", "Clark", 
                                              "Hot Spring", "Columbia", "Cleveland", 
-                                             "Drew", "Jefferson", "Prarie", 
+                                             "Drew", "Jefferson", 
                                              "Monroe", "Phillips", "Lee", "St. Francis", 
                                              "Crittenden", "Cross", "Poinsett", 
-                                             "Craighead", "Mississippi"))
+                                             "Craighead", "Mississippi", "Prairie"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
@@ -276,6 +276,15 @@ not.counties <- rbind(data.frame(state = "OH",
                                            "Ida", "Crawford", "Lyon", "Sioux", 
                                            "Plymouth", "Woodbury", 
                                            "Monona")), 
+                      data.frame(state = "MS", 
+                                 conam = c("Sunflower", "Washington", "Sharkey", "Walthall", 
+                                           "Waithall", "Jefferson Davis", "Covington", "Jones", 
+                                           "Wayne", "Lamar", "Forrest", "Perry", "Greene", 
+                                           "Pearl River", "Stone", "George", "Hancock", 
+                                           "Harrison", "Jackson", "Newton", "Neshoba", 
+                                           "Kemper", "Choctaw", "Chickasaw", "Clay", "Winston", 
+                                           "Noxubee", "Lowndes", "Oktibbeha", "Monroe", 
+                                           "Itawamba")),
                       data.frame(state = "AZ", 
                                  conam = bound.counties$NAME[bound.counties$STUSPS == 
                                                                "AZ"]), 
