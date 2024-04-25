@@ -188,7 +188,15 @@ defin.counties <- rbind(data.frame(state = "MI",
                                    conam = c("Oconee", "Pickens", "Anderson", 
                                              "Greenville", "Spartanburg", 
                                              "Laurens", "Union", "York", 
-                                             "Aiken"))
+                                             "Aiken")), 
+                        data.frame(state = "LA", 
+                                   conam = c("Caddo", "Caliborne", "East Carroll", 
+                                             "West Carroll", "Morehouse", "Ouachita", 
+                                             "Richland", "Madison", "Concordia", 
+                                             "Catahoula", "Franklin", "Tensas", 
+                                             "Pointe Coupee", "West Feliciana", 
+                                             "East Feliciana", "St. Helena", 
+                                             "Livingtston", "East Baton Rouge"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
@@ -307,7 +315,10 @@ not.counties <- rbind(data.frame(state = "OH",
                                                                "VT"]), 
                       data.frame(state = "NH", 
                                  conam = bound.counties$NAME[bound.counties$STUSPS == 
-                                                               "NH"])
+                                                               "NH"]), 
+                      data.frame(state = "FL", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "FL"])
                       )
 
 not.counties$cost <- paste(not.counties$conam, 
