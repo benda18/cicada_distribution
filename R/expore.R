@@ -132,7 +132,16 @@ defin.counties <- rbind(data.frame(state = "MI",
                         data.frame(state = "MA", 
                                    conam = c("Plymouth", "Barnstable")), 
                         data.frame(state = "NE", 
-                                   conam = c("Otoe", "Cass", "Sarpy"))
+                                   conam = c("Otoe", "Cass", "Sarpy")), 
+                        data.frame(state = "KS", 
+                                   conam = c("Atchison", "Jackson", 
+                                             "Pottawatomie", "Wabaunsee", 
+                                             "Lyon", "Greenwood", "Woodson", 
+                                             "Wilson", "Allen", "Bourbon", 
+                                             "Labette", "Cherokee", "Osage", 
+                                             "Coffey", "Douglas", "Johnson", 
+                                             "Wyandotte", "Morris", "Chase", 
+                                             "Marion"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
