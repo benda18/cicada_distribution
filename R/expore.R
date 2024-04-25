@@ -217,9 +217,12 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "St. Clair", "Etowah", "DeKalb", "Cherokee", 
                                              "Jackson", "Marshall", "Randolph", "Perry", 
                                              "Dallas", "Autauga", "Lowndes", "Elmore", 
-                                             "Montgomery", "Macon", "Russell"))
-                        # data.frame(state = "GA", 
-                        #            conam = c("Walker")), 
+                                             "Montgomery", "Macon", "Russell")),
+                        data.frame(state = "GA",
+                                   conam = c("Walker", "Chattooga", "Floyd", "Polk", "Fulton", 
+                                             "Cherokee", "Gilmer", "Fannin", "Union", "White", 
+                                             "Habersham", "Rabun", "Jackson", "Madison", 
+                                             "Richmond"))
                         # data.frame(state = "KY", 
                         #            conam = c("Pendleton", "Union"))
                         ) %>%
