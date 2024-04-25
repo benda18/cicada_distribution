@@ -196,7 +196,21 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Catahoula", "Franklin", "Tensas", 
                                              "Pointe Coupee", "West Feliciana", 
                                              "East Feliciana", "St. Helena", 
-                                             "Livingtston", "East Baton Rouge"))
+                                             "Livingston", "East Baton Rouge", 
+                                             "Claiborne")), 
+                        data.frame(state = "AR", 
+                                   conam = c("Sebastian", "Scott", "Logan", "Johnson", 
+                                             "Van Buren", "Searcy", "Newton", "Stone", 
+                                             "Izard", "Sharp", "Randolph", 
+                                             "Benton", "Washington", "Crawford", 
+                                             "Franklin", "Madison", "Baxter",
+                                             "Carroll", "Boone", "Marion", "Fulton", 
+                                             "Sevier", "Howard", "Pike", "Clark", 
+                                             "Hot Spring", "Columbia", "Cleveland", 
+                                             "Drew", "Jefferson", "Prarie", 
+                                             "Monroe", "Phillips", "Lee", "St. Francis", 
+                                             "Crittenden", "Cross", "Poinsett", 
+                                             "Craighead", "Mississippi"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
