@@ -114,7 +114,7 @@ mk3 <- function(x){
 }
 
 
-# not counties----
+# defin counties----
 defin.counties <- rbind(data.frame(state = "MI", 
                                    conam = c("Berrien", "Cass", "St. Joseph", "Jackson",
                                              "Branch", "Hillsdale")), 
@@ -124,10 +124,13 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Milwaukee", "Green", "Rock", "Walworth")), 
                         data.frame(state = "NY",
                                    conam = c("Ontario", "Yates", "Seneca", "Kings", 
-                                             "Queens", "Nassau", "Suffolk",
+                                             "Queens", "Nassau", "Suffolk", "Rockland",
+                                             "Richmond",
                                              "Bronx", "New York", "Westchester", 
                                              "Putnam", "Rensselaer", "Columbia", "Dutchess", 
-                                             "Albany", "Greene", "Ulster", "Orange"))
+                                             "Albany", "Greene", "Ulster", "Orange")), 
+                        data.frame(state = "MA", 
+                                   conam = c("Plymouth", "Barnstable"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
@@ -140,7 +143,7 @@ def.not.counties <- bound.counties[bound.counties$STUSPS %in%
          cost = paste(NAME, STUSPS)) %>%
   .$cost
 
-
+# notin counties----
 not.counties <- rbind(data.frame(state = "OH", 
                                  conam = c("Williams", "Defiance", 
                                            "Paulding", "Van Wert", 
@@ -150,7 +153,32 @@ not.counties <- rbind(data.frame(state = "OH",
                                            "Ashtabula", "Pickaway")), 
                       data.frame(state = "IN", 
                                  conam = c("Jasper", "Newton", "Cass", "Wabash", 
-                                           "Whitley", "LaGrange")))
+                                           "Whitley", "LaGrange")), 
+                      data.frame(state = "PA", 
+                                 conam = c("Erie", "Warren", "Forest", 
+                                           "Elk", "McKean", "Clearfield", 
+                                           "Cameron", "Potter", "Lycoming", 
+                                           "Tioga", "Northumberland", 
+                                           "Sullivan", "Bradford", 
+                                           "Susquehanna", "Wayne", 
+                                           "Lackawanna")), 
+                      data.frame(state = "CT", 
+                                 conam = c("Northeastern Connecticut", 
+                                           "Southeastern Connecticut", 
+                                           "Capitol")), 
+                      data.frame(state = "IL", 
+                                 conam = c("Henderson", "Schuyler", 
+                                           "Brown", "Menard", "Clark", 
+                                           "Moultrie", "Fayette", 
+                                           "Calhoun")), 
+                      data.frame(state = "MO", 
+                                 conam = c("St. Louis", "Shelby", 
+                                           "Adair", "Sullivan", 
+                                           "Carroll", "Daviess", "Platte", 
+                                           "Clay","Clinton", 
+                                           "Cass", "Bates", "McDonald", "Newton", 
+                                           "Jasper", "Stone", "Taney", "Douglas", 
+                                           "Dunklin")))
 
 not.counties$cost <- paste(not.counties$conam, 
                            not.counties$state)
@@ -205,28 +233,28 @@ leaflet() %>%
     color = "blue", 
     opacity = 0.33, 
     weight = NA, 
-    label = bound.counties2$NAME,
-    labelOptions = labelOptions(
-      textsize = 14,
-      permanent = F,
-      noHide = NULL
-    )
+    # label = bound.counties2$NAME,
+    # labelOptions = labelOptions(
+    #   textsize = 14,
+    #   permanent = F,
+    #   noHide = NULL
+    # )
   ) %>%
-  addPolylines(
+  addPolygons(
     data = bound.counties, 
     #group = bound.counties, 
     stroke = T, 
     # fillColor = "cyan", 
     # fillOpacity = 0.66, 
-    color = "blue", 
+    color = "grey", 
     opacity = 0.33, 
     weight = NA, 
-    # label = as.numeric(bound.counties$COUNTYFP),
-    # labelOptions = labelOptions(
-    #   textsize = 14,
-    #   permanent = T, 
-    #   noHide = NULL
-    # )
+    label = (bound.counties$NAME),
+    labelOptions = labelOptions(
+      textsize = 14,
+      permanent = F,
+      noHide = NULL
+    )
   ) %>%
   addPolylines(data = bound.states, 
                group = "States",
