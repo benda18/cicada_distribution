@@ -222,7 +222,7 @@ defin.counties <- rbind(data.frame(state = "MI",
                                    conam = c("Walker", "Chattooga", "Floyd", "Polk", "Fulton", 
                                              "Cherokee", "Gilmer", "Fannin", "Union", "White", 
                                              "Habersham", "Rabun", "Jackson", "Madison", 
-                                             "Richmond"))
+                                             "Richmond", "Troup"))
                         # data.frame(state = "KY", 
                         #            conam = c("Pendleton", "Union"))
                         ) %>%
