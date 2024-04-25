@@ -5,8 +5,9 @@ library(lubridate)
 library(leaflet)
 library(ggplot2)
 library(data.table)
+library(rmarkdown)
 
-snapshot()
+renv::snapshot()
 
 rm(list=ls()[!ls() %in% c("bound.states", 
                           "bound.counties", 
@@ -162,7 +163,13 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Jefferson", "Comanche" )), 
                         data.frame(state = "TX", 
                                    conam = c("Red River", "Lamar", "Fannin", 
-                                             "Cooke", "Kaufman"))
+                                             "Cooke", "Kaufman")), 
+                        data.frame(state = "NC", 
+                                   conam = c("Durham", "Wake", "Orange", 
+                                             "Chatham", "Franklin", "Warren", 
+                                             "Halifax","Northampton", 
+                                             "Alamance", "Randolph", "Guilford", 
+                                             "Rockingham"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
