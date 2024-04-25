@@ -98,15 +98,21 @@ if(!"brood.out" %in% ls()){
 
 # mapping----
 
+
 if(!"bound.states" %in% ls()){
-  bound.states <- tigris::states(cb = T) %>%
-    .[.$STUSPS %in% brood.out$state,]
+  bound.states <- tigris::states(cb = T) %>% 
+  #.[.$STUSPS %in% brood.out$state,]
+    .[.$STUSPS %in% state.abb[!state.abb %in% c("HI", "AK")],]
   
 }
 
 if(!"bound.counties" %in% ls()){
   bound.counties <- tigris::counties(cb = T) %>%
-    .[.$STUSPS %in% brood.out$state,]
+    .[.$STUSPS %in% c(brood.out$state, c("AZ", "NM", "CO", "NV", 
+                                         "CA", "ID", "WA", 
+                                         "OR", "MT", "WY", "UT", 
+                                         "ND", "SD", "MN", 
+                                         "RI", "ME", "VT", "NH")),]
 }
 
 
@@ -169,7 +175,15 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Chatham", "Franklin", "Warren", 
                                              "Halifax","Northampton", 
                                              "Alamance", "Randolph", "Guilford", 
-                                             "Rockingham"))
+                                             "Rockingham", "Stokes", "Forsyth", 
+                                             "Yadkin", "Surry", "Alleghany", 
+                                             "Wilkes", "Watauga", "Caldwell", 
+                                             "Burke", "McDowell", "Mitchell", 
+                                             "Yancey", "Madison", "Buncombe", 
+                                             "Haywood", "Jackson", "Robeson", 
+                                             "Iredell", "Mecklenburg", "Cabarrus", 
+                                             "Rutherford", "Polk", "Henderson", 
+                                             "Transylvania", "Cherokee"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
@@ -234,7 +248,62 @@ not.counties <- rbind(data.frame(state = "OH",
                                            "Sac", "Osceola", "O'Brien", "Cherokee", 
                                            "Ida", "Crawford", "Lyon", "Sioux", 
                                            "Plymouth", "Woodbury", 
-                                           "Monona")))
+                                           "Monona")), 
+                      data.frame(state = "AZ", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "AZ"]), 
+                      data.frame(state = "NM", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "NM"]), 
+                      data.frame(state = "CO", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "CO"]), 
+                      data.frame(state = "MN", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "MN"]), 
+                      data.frame(state = "ND", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "ND"]), 
+                      data.frame(state = "SD", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "SD"]), 
+                      data.frame(state = "MT", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "MT"]), 
+                      data.frame(state = "WY", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "WY"]), 
+                      data.frame(state = "ID", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "ID"]), 
+                      data.frame(state = "WA", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "WA"]), 
+                      data.frame(state = "OR", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "OR"]), 
+                      data.frame(state = "CA", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "CA"]), 
+                      data.frame(state = "NV", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "NV"]), 
+                      data.frame(state = "UT", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "UT"]), 
+                      data.frame(state = "RI", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "RI"]), 
+                      data.frame(state = "ME", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "ME"]), 
+                      data.frame(state = "VT", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "VT"]), 
+                      data.frame(state = "NH", 
+                                 conam = bound.counties$NAME[bound.counties$STUSPS == 
+                                                               "NH"])
+                      )
 
 not.counties$cost <- paste(not.counties$conam, 
                            not.counties$state)
