@@ -223,8 +223,6 @@ defin.counties <- rbind(data.frame(state = "MI",
                                              "Cherokee", "Gilmer", "Fannin", "Union", "White", 
                                              "Habersham", "Rabun", "Jackson", "Madison", 
                                              "Richmond", "Troup"))
-                        # data.frame(state = "KY", 
-                        #            conam = c("Pendleton", "Union"))
                         ) %>%
   mutate(., 
          cost = paste(conam, state))
@@ -304,6 +302,17 @@ not.counties <- rbind(data.frame(state = "OH",
                                  conam = c("Houston", "Montgomery", "Dickson", "Hickman", "Lewis", 
                                            "Lawrence", "Wayne", "Maury", "Marshall", "Lincoln", 
                                            "Sumner", "Wilson", "Trousdale", "Smith")),
+                      data.frame(state = "KY", 
+                                 conam = c("Henderson", "Webster", "Hopkins", "Christian", 
+                                           "Todd", "Muhlenberg", "Butler", "Ohio", "McLean", 
+                                           "Daviess", "Hancock", "Breckinridge","Hardin", 
+                                           "Meade", "Marion", "Washington", "Boone", "Kenton", 
+                                           "Campbell", "Gallatin", "Carroll", "Trimble", 
+                                           "Henry","Spencer", "Oldham", "Grant", "Owen", "Bracken", 
+                                           "Robertson", "Nicholas", "Clark", "Menifee", "Morgan", 
+                                           "Elliott", "Bell", "Woodford", "McCreary", "Knox", 
+                                           "Bell", "Clinton", "Russell", "Wayne", "Clay", 
+                                           "Leslie", "Harlan", "Letcher", "Breathitt")),
                       data.frame(state = "AZ", 
                                  conam = bound.counties$NAME[bound.counties$STUSPS == 
                                                                "AZ"]), 
