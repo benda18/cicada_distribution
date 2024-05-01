@@ -400,6 +400,12 @@ bound.counties2 <- bound.counties[!paste(bound.counties$NAME,
                                          bound.counties$STUSPS) %in%
                                     c(def.not.counties, not.counties$cost),] 
 
+bound.counties2 %>%
+  sf::st_drop_geometry() %>%
+  group_by(STUSPS, NAME) %>%
+  summarise()
+
+
 leaflet() %>%
   # add different provider tiles
   addProviderTiles(
@@ -435,32 +441,32 @@ leaflet() %>%
     position = "bottomleft",
     options = layersControlOptions(collapsed = F)
   ) %>%
+  # addPolygons(
+  #   data = bound.counties, 
+  #   #group = bound.counties, 
+  #   stroke = T, 
+  #   # fillColor = "cyan", 
+  #   # fillOpacity = 0.66, 
+  #   color = "grey", 
+  #   opacity = 0.33, 
+  #   weight = NA, 
+  #   # label = (bound.counties$NAME),
+  #   # labelOptions = labelOptions(
+  #   #   textsize = 14,
+  #   #   permanent = F,
+  #   #   noHide = NULL
+  #   # )
+  # ) %>%
   addPolygons(
     data = bound.counties2, 
     #group = bound.counties, 
     stroke = T, 
     fillColor = "cyan", 
-    fillOpacity = 0.66, 
+    fillOpacity = 0.33, 
     color = "blue", 
     opacity = 0.33, 
-    weight = NA, 
-    # label = bound.counties2$NAME,
-    # labelOptions = labelOptions(
-    #   textsize = 14,
-    #   permanent = F,
-    #   noHide = NULL
-    # )
-  ) %>%
-  addPolygons(
-    data = bound.counties, 
-    #group = bound.counties, 
-    stroke = T, 
-    # fillColor = "cyan", 
-    # fillOpacity = 0.66, 
-    color = "grey", 
-    opacity = 0.33, 
-    weight = NA, 
-    label = (bound.counties$NAME),
+    weight = 1, 
+    label = bound.counties2$NAME,
     labelOptions = labelOptions(
       textsize = 14,
       permanent = F,
@@ -470,8 +476,8 @@ leaflet() %>%
   addPolylines(data = bound.states, 
                group = "States",
                stroke = T,
-               fillColor = "brown", 
-               fillOpacity = 0.33,
+               #fillColor = "brown", 
+               #fillOpacity = 0.33,
                opacity = 1,
-               color = "black",
-               weight = NA)
+               color = "blue",
+               weight = 1.2)
