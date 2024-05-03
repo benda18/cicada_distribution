@@ -1,6 +1,7 @@
 library(renv)
 library(readr)
 library(dplyr)
+library(leaflet)
 
 renv::snapshot()
 
@@ -61,7 +62,7 @@ b2$county <- unlist(lapply(b2$county, mk3))
 
 
 master.co <- rbind(b1,b2) %>%
-  group_by(state,county) %>%
+  group_by(state,county, brood) %>%
   summarise() %>%
   mutate(., sco = paste(state,county,sep = ""))
 
@@ -132,12 +133,13 @@ addPolygons(
     permanent = F,
     noHide = NULL
   )
-) %>%
-  addPolylines(data = bound.states, 
-               group = "States",
-               stroke = T,
-               #fillColor = "brown", 
-               #fillOpacity = 0.33,
-               opacity = 1,
-               color = "blue",
-               weight = 1.2)
+) #%>%
+  # addPolylines(data = bound.states, 
+  #              group = "States",
+  #              stroke = T,
+  #              #fillColor = "brown", 
+  #              #fillOpacity = 0.33,
+  #              opacity = 1,
+  #              color = "blue",
+  #              weight = 1.2)
+
